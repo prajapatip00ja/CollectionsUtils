@@ -1,27 +1,23 @@
 import java.util.ArrayList;
 import java.util.List;
 
-interface ListMapper {
-	public int giveElement(int element);
-}
-
-class iterable implements ListMapper{
-	public int giveElement(int element){
-		return element+1;
-	};
+interface ListMapper<E> {
+    public E giveElement(E element);
 }
 
 
-public class CollectionsUtils {
+
+public class CollectionsUtils{
 	
-	public static List<Integer> map(List<Integer> list, ListMapper callback){
-		List<Integer> list1 = new ArrayList<Integer>();
+	public static<E> List<E> map(List<E> list,ListMapper<E> callback){
+
+		List<E> list1 = new ArrayList<E>();
 
 		for(int i=0;i<list.size();i++){
 			list1.add(callback.giveElement(list.get(i)));
 		}
 
-		return list1;
+		return list;
 	}
 
 }
