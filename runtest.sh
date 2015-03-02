@@ -1,4 +1,4 @@
 echo compiling...
-javac -cp junit-4.10.jar CollectionTest.java CollectionsUtils.java
+javac -cp junit-4.10.jar PathTest.java Path.java
 echo running...
-java -cp ".;junit-4.10.jar" org.junit.runner.JUnitCore CollectionTest
+java -cp ".;junit-4.10.jar" org.junit.runner.JUnitCore PathTest

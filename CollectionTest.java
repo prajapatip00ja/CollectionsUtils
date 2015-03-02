@@ -58,7 +58,7 @@ public class CollectionTest {
         assertEquals(list2.get(2),(Integer)3);
     }
 
-    
+
 
     @Test
     public void TestMap_02(){
@@ -109,12 +109,4 @@ public class CollectionTest {
         Integer list2 = CollectionsUtils.<Integer,Integer>reduce(list1,callback,i);
         assertEquals(11,(int)list2);
     }
-
-
-
-
-
-
-
-
 }    
