@@ -63,15 +63,44 @@ public class PathTest {
     	}
     }
 
-    
+    @Test
+    public void isDirectWayTest_from_tokyo_to_banglor() throws Exception {
+    	String src = "Tokyo";
+    	String des = "Banglore";
+    	Map<String,String[]> cities = new HashMap<String,String[]>();
+    	String[] Descity1 = {"Singapore"};
+    	String[] Descity2 = {"Seoul","Dubai"};
+    	String[] Descity3 = {"Beijing"};
+    	String[] Descity4 = {"Tokyo"};
+    	String[] Descity5 = {"Banglore"};
+    	cities.put("Banglore",Descity1);
+    	cities.put("Singapore",Descity2);
+    	cities.put("Seoul",Descity3);
+    	cities.put("Beijing",Descity4);
+    	cities.put("Tokyo",Descity5);
+    	Path p = new Path();
+    	Boolean a = p.isRoute(src,des,cities);
+    	assertEquals(a,true);
+    }
 
-
-
-
-
-
-
-
-
+    @Test
+    public void isDirectWayTest_from_dubai_to_finland() throws Exception {
+    	String src = "Singapore";
+    	String des = "Finland";
+    	Map<String,String[]> cities = new HashMap<String,String[]>();
+    	String[] Descity1 = {"Singapore"};
+    	String[] Descity2 = {"Dubai","Seoul"};
+    	String[] Descity3 = {"Beijing"};
+    	String[] Descity4 = {"Finland"};
+    	String[] Descity5 = {"Tokyo"};
+    	cities.put("Banglore",Descity1);
+    	cities.put("Singapore",Descity2);
+    	cities.put("Seoul",Descity3);
+    	cities.put("Dubai",Descity4);
+    	cities.put("Beijing",Descity5);
+    	Path p = new Path();
+    	Boolean a = p.isRoute(src,des,cities);
+    	assertEquals(a,true);
+    }
 }
 																																												

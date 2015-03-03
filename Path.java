@@ -7,24 +7,23 @@ import java.util.Set;
 
 public class Path{
 
+	public Boolean searchInDesLst(String city,Map cities,String des) throws Exception{
+		for(String dcity : (String[])cities.get(city)){
+			if(des.equals(dcity))
+				return true;
+		}
+		for(String dcity : (String[])cities.get(city)){
+			return (new Path()).isRoute(dcity,des,cities);
+		}
+		return false;	
+	}
+
 	public Boolean isRoute(String src,String des,Map cities) throws Exception{
-		Boolean isDircetWay = false;
 		Set<String> citySet = cities.keySet();
 		for(String city : citySet){
 			if(src.equals(city)){
-				for(String dcity : (String[])cities.get(city)){
-					if(des.equals(dcity)){
-						isDircetWay = true;
-						break;
-					}
-				}
-				if(isDircetWay==false){
-					for(String dcity : (String[])cities.get(city)){
-						return (new Path()).isRoute(dcity,des,cities);
-					}
-				}
-				else
-					return isDircetWay;	
+				Boolean isDircetWay = this.searchInDesLst(city,cities,des);
+				return isDircetWay;
 			}
 		}
 		throw new Exception("No city named "+ src + " in database");
