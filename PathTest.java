@@ -2,105 +2,67 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import java.util.Map;
 import java.util.HashMap;
-
+import java.util.ArrayList;
 public class PathTest {
     
     @Test
-    public void isDirectWayTest_01() throws Exception {
+    public void isRoute_test_checks_the_route_between_banglore_to_singapore() throws Exception {
     	String src = "Banglore";
     	String des = "Singapore";
-    	Map<String,String[]> cities = new HashMap<String,String[]>();
-    	String[] Descity1 = {"Singapore"};
-    	String[] Descity2 = {"Dubai","Seoul"};
-    	String[] Descity3 = {"Beijing"};
-    	String[] Descity4 = {"Tokyo"};
-    	cities.put("Banglore",Descity1);
-    	cities.put("Singapore",Descity2);
-    	cities.put("Seoul",Descity3);
-    	cities.put("Beijing",Descity4);
-    	Path p = new Path();
-    	Boolean a = p.isRoute(src,des,cities);
-    	assertEquals(a,true);
+      Path path = new Path(src,des);
+      Map cities = (new db()).createDb();
+      ArrayList<String> route = new ArrayList<String>();
+      route.add(src);
+      assertEquals(path.isRoute(cities,route),true);
     }
 
     @Test
-    public void isDirectWayTest_02() throws Exception {
+    public void isRoute_test_checks_the_route_between_banglore_to_tokyo() throws Exception {
     	String src = "Banglore";
     	String des = "Tokyo";
-    	Map<String,String[]> cities = new HashMap<String,String[]>();
-    	String[] Descity1 = {"Singapore"};
-    	String[] Descity2 = {"Seoul","Dubai"};
-    	String[] Descity3 = {"Beijing"};
-    	String[] Descity4 = {"Tokyo"};
-    	cities.put("Banglore",Descity1);
-    	cities.put("Singapore",Descity2);
-    	cities.put("Seoul",Descity3);
-    	cities.put("Beijing",Descity4);
-    	Path p = new Path();
-    	Boolean a = p.isRoute(src,des,cities);
-    	assertEquals(a,true);
+      Path path = new Path(src,des);
+      Map cities = (new db()).createDb();
+      ArrayList<String> route = new ArrayList<String>();
+      route.add(src);
+      assertEquals(path.isRoute(cities,route),true);
     }
 
     @Test
-    public void isDirectWayTest_03() {
-    	String src = "Chennai";
-    	String des = "Tokyo";
-    	Map<String,String[]> cities = new HashMap<String,String[]>();
-    	String[] Descity1 = {"Singapore"};
-    	String[] Descity2 = {"Dubai","Seoul"};
-    	String[] Descity3 = {"Beijing"};
-    	String[] Descity4 = {"Tokyo"};
-    	cities.put("Banglore",Descity1);
-    	cities.put("Singapore",Descity2);
-    	cities.put("Seoul",Descity3);
-    	cities.put("Beijing",Descity4);
-    	Path p = new Path();
+    public void isRoute_test_checks_the_route_between_chennai_to_tokyo() {
+      String src = "Chennai";
+      String des = "Tokyo";
+      Path path = new Path(src,des);
+      Map cities = (new db()).createDb();  
+      ArrayList<String> route = new ArrayList<String>();
+      route.add(src);
     	try{
-	    	Boolean a = p.isRoute(src,des,cities);
+      	Boolean a = path.isRoute(cities,route);
     	}
     	catch(Exception e){
-			assertEquals(e.getMessage(),"No city named Chennai in database");    		
-    	}
+  		  assertEquals(e.getMessage(),"No city named Chennai in database");    		
+  	 }
     }
 
     @Test
-    public void isDirectWayTest_from_tokyo_to_banglor() throws Exception {
+    public void isRoute_test_checks_the_route_between_tokyo_to_banglor() throws Exception {
     	String src = "Tokyo";
     	String des = "Banglore";
-    	Map<String,String[]> cities = new HashMap<String,String[]>();
-    	String[] Descity1 = {"Singapore"};
-    	String[] Descity2 = {"Seoul","Dubai"};
-    	String[] Descity3 = {"Beijing"};
-    	String[] Descity4 = {"Tokyo"};
-    	String[] Descity5 = {"Banglore"};
-    	cities.put("Banglore",Descity1);
-    	cities.put("Singapore",Descity2);
-    	cities.put("Seoul",Descity3);
-    	cities.put("Beijing",Descity4);
-    	cities.put("Tokyo",Descity5);
-    	Path p = new Path();
-    	Boolean a = p.isRoute(src,des,cities);
-    	assertEquals(a,true);
+      Path path = new Path(src,des);
+      Map cities = (new db()).createDb();
+      ArrayList<String> route = new ArrayList<String>();
+      route.add(src);
+      assertEquals(path.isRoute(cities,route),true);
     }
 
     @Test
-    public void isDirectWayTest_from_dubai_to_finland() throws Exception {
-    	String src = "Singapore";
-    	String des = "Finland";
-    	Map<String,String[]> cities = new HashMap<String,String[]>();
-    	String[] Descity1 = {"Singapore"};
-    	String[] Descity2 = {"Dubai","Seoul"};
-    	String[] Descity3 = {"Beijing"};
-    	String[] Descity4 = {"Finland"};
-    	String[] Descity5 = {"Tokyo"};
-    	cities.put("Banglore",Descity1);
-    	cities.put("Singapore",Descity2);
-    	cities.put("Seoul",Descity3);
-    	cities.put("Dubai",Descity4);
-    	cities.put("Beijing",Descity5);
-    	Path p = new Path();
-    	Boolean a = p.isRoute(src,des,cities);
-    	assertEquals(a,true);
+    public void isRoute_test_checks_the_route_between_banglore_to_Finland() throws Exception {
+      String src = "Banglore";
+      String des = "Finland";
+      Path path = new Path(src,des);
+      Map cities = (new db()).createDb();
+      ArrayList<String> route = new ArrayList<String>();
+      route.add(src);
+      assertEquals(path.isRoute(cities,route),false);
     }
 }
 																																												
