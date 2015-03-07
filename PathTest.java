@@ -3,6 +3,7 @@ import org.junit.Test;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
+
 public class PathTest {
     
     @Test
@@ -10,7 +11,7 @@ public class PathTest {
     	String src = "Banglore";
     	String des = "Singapore";
       PathFinder pathFinder = new PathFinder(src,des);
-      Map cities = (new db()).createDb();
+      Map cities = (new Db()).createDb();
       ArrayList<String> route = new ArrayList<String>();
       route.add(src);
       assertEquals(pathFinder.isRoute(cities,route),true);
@@ -21,7 +22,7 @@ public class PathTest {
     	String src = "Banglore";
     	String des = "Tokyo";
       PathFinder pathFinder = new PathFinder(src,des);
-      Map cities = (new db()).createDb();
+      Map cities = (new Db()).createDb();
       ArrayList<String> route = new ArrayList<String>();
       route.add(src);
       assertEquals(pathFinder.isRoute(cities,route),true);
@@ -32,7 +33,7 @@ public class PathTest {
       String src = "Chennai";
       String des = "Tokyo";
       PathFinder pathFinder = new PathFinder(src,des);
-      Map cities = (new db()).createDb();  
+      Map cities = (new Db()).createDb();  
       ArrayList<String> route = new ArrayList<String>();
       route.add(src);
     	try{
@@ -48,7 +49,18 @@ public class PathTest {
     	String src = "Tokyo";
     	String des = "Banglore";
       PathFinder pathFinder = new PathFinder(src,des);
-      Map cities = (new db()).createDb();
+      Map cities = (new Db()).createDb();
+      ArrayList<String> route = new ArrayList<String>();
+      route.add(src);
+      assertEquals(pathFinder.isRoute(cities,route),true);
+    }
+
+    @Test
+    public void isRoute_test_checks_the_route_between_tokyo_to_dubai() throws Exception {
+      String src = "Tokyo";
+      String des = "Dubai";
+      PathFinder pathFinder = new PathFinder(src,des);
+      Map cities = (new Db()).createDb();
       ArrayList<String> route = new ArrayList<String>();
       route.add(src);
       assertEquals(pathFinder.isRoute(cities,route),true);
@@ -59,7 +71,7 @@ public class PathTest {
       String src = "Banglore";
       String des = "Finland";
       PathFinder pathFinder = new PathFinder(src,des);
-      Map cities = (new db()).createDb();
+      Map cities = (new Db()).createDb();
       ArrayList<String> route = new ArrayList<String>();
       route.add(src);
       assertEquals(pathFinder.isRoute(cities,route),false);

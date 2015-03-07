@@ -1,4 +1,4 @@
-Bangalore,India
+Banglore,India
 Tokyo,Japan
 Singapore,Singapore
 Seoul,South Korea
