@@ -1,8 +1,7 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
+import java.util.*;
+
 
 public class PathTest {
     
@@ -76,5 +75,32 @@ public class PathTest {
       route.add(src);
       assertEquals(pathFinder.isRoute(cities,route),false);
     }
+
+    @Test
+    public void giveCost_give_cost_between_two_direct_city(){
+      String src = "Banglore";
+      String des = "Singapore";
+      AllPathFinder pf = new AllPathFinder();
+      Map cities = (new Db()).createDbFromFile("PathS.txt");
+      int cost  = pf.giveCost(src,des,cities);
+      assertEquals(cost,7000);
+    }
+
+    @Test
+    public void giveCost_give_cost_between_two_indirect_city() throws Exception {
+      String src = "Banglore";
+      String des = "Tokyo";
+      AllPathFinder pathFinder = new AllPathFinder();
+      List<String> route = new ArrayList<String>();
+      Map cities = (new Db()).createDbFromFile("PathS.txt");
+      route.add("Banglore");
+      route.add("Singapore");
+      route.add("Seoul");
+      route.add("Beijing");
+      route.add("Tokyo"); 
+      assertEquals(pathFinder.calculateCost(cities,route),16000);
+    }
+
+
 }
 																																												

@@ -1,5 +1,6 @@
-Banglore Singapore
-Singapore Banglore,Seoul,Dubai
-Seoul Singapore,Beijing
-Beijing Seoul,Tokyo
-Tokyo Beijing
+Banglore Singapore#7000
+Singapore Banglore#7000,Seoul#4000,Dubai#12000
+Seoul Singapore#4000,Beijing#3000
+Beijing Seoul#3000,Tokyo#2000
+Tokyo Beijing#2000
+Dubai Seoul#1000

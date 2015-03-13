@@ -14,16 +14,18 @@ class PathFinder {
 	}	
 
 	public Boolean searchInDesLst(Map cities,String city,ArrayList<String> path) throws Exception{
-		for(String destination : (String[])cities.get(city)){
+		List<String> destinations = (List<String>)cities.get(city);
+		for(String destination : destinations){
 			if(des.equals(destination)){
 				path.add(destination);
 				return true;
 			}
 		}
-		for(String destination : (String[])cities.get(city)){
+		for(String destination : destinations){
 			if(path.contains(destination)==false){
 				path.add(destination);
-				return (new PathFinder(destination,des)).isRoute(cities,path);
+				this.src = destination;
+				return isRoute(cities,path);
 			}
 		}
 		return false;
@@ -39,72 +41,49 @@ class PathFinder {
 		throw new Exception("No city named "+ src + " in database");
 	}
 
+	
+
 	public String toString(ArrayList<String> route){
 		return String.join("->",route);
 	}
-
 }
 
 public class Path{
-	public String mapWithCountry(String file,String city){
-		String texts = (new PathReader(file)).readFile();
-		String[] lines = texts.split("\r\n");
-		String country="";
-		for(int i = 0; i<lines.length; i++){
-			if(city.equals(lines[i].split(",")[0])){
-				country = lines[i].split(",")[1];
-			}
-		}
-		return city+"["+country+"]";	
-	}
 
-	public void toStringWithCountry(ArrayList<String> route,String file){
-		String path = "";
-		for(int i = 0 ; i< route.size(); i++){
-			if(i!=route.size()-1)
-			path = path+this.mapWithCountry(file,route.get(i))+"->";
-			else
-			path = path+this.mapWithCountry(file,route.get(i)); 
-		}
-		System.out.println(path);
-	}
-	
-	public void printRoute(PathFinder pf,ArrayList<String> route,Map cities,String option,String file){
-		try{
-    		Boolean isDircetWay = pf.isRoute(cities,route);
-    		if(option.equals("-c")){
-    			(new Path()).toStringWithCountry(route,file);
-    		}
-    		else
-	    	System.out.println(pf.toString(route));
-    	}
-    	catch(Exception e){
-    		System.out.println(e.getMessage());
-    	}
-	}
-	
+	public PathFinder checkRoute(ArrayList<String> route,Map cities,String source,String destination){
+        PathFinder pf = new PathFinder(source,destination);
+        route.add(source);
+        try{
+            pf.isRoute(cities,route);
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return pf;
+    }
+
 	public static void main(String[] args) {
-	    ArrayList<String> route = new ArrayList<String>();
-    	Map cities=null;
-	    PathFinder pf=null;
-	    if(args.length==2){
-	    	cities = (new Db()).createDb();
-	    	pf = new PathFinder(args[0],args[1]);
-	    	route.add(args[0]);
-	    	(new Path()).printRoute(pf,route,cities,"","");
-	    }
-	    else if(args[0].equals("-f")){
-	    	cities = (new Db()).createDbFromFile(args[1]);
-	    	if(args[2].equals("-c")){
-	    		pf = new PathFinder(args[4],args[5]);
-	    		route.add(args[4]);
-	    		(new Path()).printRoute(pf,route,cities,args[2],args[3]);
-	    	}
-	    	else{
-	    	pf = new PathFinder(args[2],args[3]);
-	    	route.add(args[2]);
-	    	(new Path()).printRoute(pf,route,cities,"","");
-	    	}
-	    }
-	}
+        ArrayList<String> route = new ArrayList<String>();
+        Map cities=null;
+        if(args.length==2){
+            cities = (new Db()).createDb();
+           	PathFinder pf = (new Path()).checkRoute(route,cities,args[0],args[1]);
+        	System.out.println(pf.toString(route));
+        }
+        else{
+           cities = (new Db()).createDbFromFile(args[1]);
+            if(args[2].equals("-c")){
+            	AllPathFinder pf = new AllPathFinder();
+            	List<List<String>> allPaths = pf.giveAllPaths(cities,args[4],args[5]);
+            	for(List<String> path : allPaths){
+                    (new CountryMapper()).toString(path,args[3]);
+                   	System.out.println("total cost:-"+pf.calculateCost(cities,path));
+            	}
+            }
+            else{
+                PathFinder pf = (new Path()).checkRoute(route,cities,args[2],args[3]);
+                System.out.println(pf.toString(route));
+            }
+        }
+    }
 }
